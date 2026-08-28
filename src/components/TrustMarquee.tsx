@@ -15,7 +15,7 @@ export function TrustMarquee({ items }: TrustMarqueeProps) {
           <span className="px-5 text-xs font-semibold tracking-[0.24em] text-gold/75 sm:px-8 sm:text-sm">
             {item}
           </span>
-          <span className="size-1.5 shrink-0 rounded-full bg-gold" />
+          <span className="size-1.5 shrink-0 rounded-full bg-gold shadow-[0_0_6px_#D4A853]" />
         </div>
       ))}
     </div>

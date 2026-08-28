@@ -79,6 +79,9 @@ export const marqueeItems: string[] = [
   'PRODUCCIÓN EUROPEA',
   'ENVÍO 2-4 DÍAS',
   'ATENCIÓN PERSONAL',
+  'PAGO SEGURO',
+  'PRINTIFY EUROPE',
+  'DEVOLUCIÓN 14 DÍAS',
 ];
 
 export const processSteps = [
