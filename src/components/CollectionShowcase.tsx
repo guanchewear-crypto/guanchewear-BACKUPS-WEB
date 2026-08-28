@@ -12,6 +12,7 @@ export function CollectionShowcase() {
   const trackRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
   const reduceMotion = useReducedMotion()
+  const parallaxRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     if (reduceMotion) return
@@ -41,8 +42,41 @@ export function CollectionShowcase() {
     return () => media.revert()
   }, [reduceMotion])
 
+  // Parallax text on collection titles/descriptions
+  useLayoutEffect(() => {
+    if (reduceMotion) return
+
+    const media = gsap.matchMedia()
+    media.add('(min-width: 768px)', () => {
+      const panel = parallaxRef.current
+      if (!panel) return
+
+      gsap.to(panel, {
+        y: -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1.2,
+        },
+      })
+      return () => {} // gentle fade, no cleanup needed for this decorative element
+    })
+    return () => {}
+  }, [reduceMotion])
+
   return (
     <section id="colecciones" ref={sectionRef} className="relative scroll-mt-16 bg-bg-secondary md:h-[320vh]" aria-label="Colecciones">
+      {/* Gold gradient parallax overlay */}
+      <div
+        ref={parallaxRef}
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 hidden h-[300px] md:block"
+        style={{
+          background: 'linear-gradient(180deg, rgba(212,168,83,0.06) 0%, transparent 100%)',
+        }}
+      />
+
       <div className="hidden h-[100dvh] overflow-hidden md:sticky md:top-0 md:block">
         <div ref={trackRef} className="flex h-full" style={{ width: `${collections.length * 100}%` }}>
           {collections.map((collection, index) => (
@@ -51,6 +85,7 @@ export function CollectionShowcase() {
             </div>
           ))}
         </div>
+        {/* Gold progress bar */}
         <div className="absolute inset-x-8 bottom-6 z-20 h-px bg-gold/20">
           <div
             className="h-full bg-gold transition-[width] duration-300"

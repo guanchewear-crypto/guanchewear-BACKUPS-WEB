@@ -52,12 +52,38 @@ export function OriginSection() {
               <path d="M225 463l12-5 11 5-10 7z" /><path d="M57 500l16-5 10 5-15 7z" />
             </g>
 
+            {/* Gold route line with shimmer animation on draw */}
             <path d="M132 474 C 230 340, 320 245, 485 203 S 604 178, 620 159" fill="none" stroke="#D4A853" strokeWidth="2.5" strokeLinecap="round" pathLength="1" className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none" style={{ strokeDasharray: 1, strokeDashoffset: visible ? 0 : 1 }} />
+            {/* Glow layer behind route */}
             <path d="M132 474 C 230 340, 320 245, 485 203 S 604 178, 620 159" fill="none" stroke="#D4A853" strokeWidth="8" strokeOpacity=".12" filter="url(#originBlur)" pathLength="1" className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none" style={{ strokeDasharray: 1, strokeDashoffset: visible ? 0 : 1 }} />
+            {/* Shimmer overlay on route */}
+            {visible && (
+              <path d="M132 474 C 230 340, 320 245, 485 203 S 604 178, 620 159" fill="none" stroke="#E8C06A" strokeWidth="3" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset="0" className="transition-opacity duration-1000" style={{
+                maskImage: 'linear-gradient(90deg, transparent 0%, white 40%, white 60%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, white 40%, white 60%, transparent 100%)',
+              }} />
+            )}
+
+            {/* Canary Islands node with pulse animation */}
             <g className={`transition-opacity delay-700 duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-              <circle cx="132" cy="474" r="6" fill="#D4A853" /><circle cx="132" cy="474" r="15" fill="none" stroke="#D4A853" strokeOpacity=".35" />
-              <circle cx="620" cy="159" r="6" fill="#fff" /><circle cx="620" cy="159" r="15" fill="none" stroke="#fff" strokeOpacity=".25" />
+              {/* Outer pulse ring — continuously animating */}
+              {visible && (
+                <circle cx="132" cy="474" r="6" fill="none" stroke="#D4A853" strokeOpacity=".4">
+                  <animate attributeName="r" values="6;22;6" dur="2.5s" repeatCount="indefinite" />
+                  <animate attributeName="strokeOpacity" values=".4;0;.4" dur="2.5s" repeatCount="indefinite" />
+                </circle>
+              )}
+              <circle cx="132" cy="474" r="6" fill="#D4A853" />
+              <circle cx="132" cy="474" r="15" fill="none" stroke="#D4A853" strokeOpacity=".35" />
             </g>
+
+            {/* Europe node */}
+            <g className={`transition-opacity delay-700 duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+              <circle cx="620" cy="159" r="6" fill="#fff" />
+              <circle cx="620" cy="159" r="15" fill="none" stroke="#fff" strokeOpacity=".25" />
+            </g>
+
+            {/* Labels */}
             <g fill="#fff" fontFamily="system-ui, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">
               <text x="108" y="525">CANARIAS</text><text x="640" y="152">EUROPA</text>
             </g>

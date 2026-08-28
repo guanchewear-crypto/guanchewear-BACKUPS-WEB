@@ -6,9 +6,26 @@ const icons: Record<string, LucideIcon> = { MessageCircle, Recycle, Shield, Spar
 
 export default function ValuesSection() {
   return (
-    <section className="bg-bg-primary px-5 py-24 text-text-primary md:px-10 md:py-36" aria-labelledby="values-title">
+    <section
+      className="relative bg-bg-primary px-5 py-24 text-text-primary md:px-10 md:py-36"
+      aria-labelledby="values-title"
+    >
+      {/* Gold radial ambient glow behind the whole section */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '100%',
+            maxWidth: 900,
+            aspectRatio: '1 / 1',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 65%)',
+          }}
+        />
+      </div>
+
       <div className="mx-auto max-w-7xl">
-        <p className="label-section mb-5 text-text-muted">NUESTROS PRINCIPIOS</p>
+        <p className="label-section mb-5 text-gold">NUESTROS PRINCIPIOS</p>
         <h2 id="values-title" className="heading-section mb-14 max-w-4xl text-white md:mb-20 md:text-7xl">
           Lo que no negociamos.
         </h2>
@@ -31,10 +48,31 @@ function ValueCard({ number, title, description, icon }: (typeof valuesData)[num
   }
 
   return (
-    <div ref={card} onMouseMove={track} className="group relative overflow-hidden border border-gold/10 p-7 transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-[6px] hover:border-gold/30 hover:shadow-[0_18px_60px_rgba(212,168,83,.10)] md:p-11">
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" style={{ background: 'radial-gradient(420px circle at var(--x,50%) var(--y,50%), rgba(212,168,83,.13), transparent 45%)' }} />
+    <div
+      ref={card}
+      onMouseMove={track}
+      className="group relative overflow-hidden border border-[var(--border-subtle)] p-7 transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-[6px] hover:border-gold/30 hover:shadow-[0_18px_60px_rgba(212,168,83,.10)] md:p-11"
+      style={{
+        background: 'rgba(255,255,255,0.02)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+      }}
+    >
+      {/* Mouse-tracking gold radial gradient */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background: 'radial-gradient(420px circle at var(--x,50%) var(--y,50%), rgba(212,168,83,.13), transparent 45%)',
+        }}
+      />
+      {/* Subtle border shine on hover */}
+      <div className="pointer-events-none absolute inset-0 rounded-none opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background: 'linear-gradient(135deg, rgba(212,168,83,0.15) 0%, transparent 50%, rgba(212,168,83,0.08) 100%)',
+        }}
+      />
       <div className="relative flex items-start justify-between">
-        <span className="text-xs tracking-[.25em] text-text-muted">{number}</span>
+        <span className="text-xs tracking-[.25em] text-gold/50">{number}</span>
         <Icon aria-hidden="true" className="h-6 w-6 stroke-[1.4] text-gold transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" />
       </div>
       <div className="relative mt-20 md:mt-28">
