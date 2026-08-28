@@ -1,0 +1,46 @@
+import { ArrowUpRight } from 'lucide-react'
+import { collections } from '../data/collections'
+
+const tiles = [
+  { c: 0, label: 'MONACO RIVIERA', cls: 'md:col-span-7 md:row-span-2', pos: 'center' },
+  { c: 1, label: 'FRONT PRINT', cls: 'md:col-span-5', pos: 'top' },
+  { c: 2, label: 'PUERTO RICO', cls: 'md:col-span-5 md:row-span-2', pos: 'center' },
+  { c: 1, label: 'MONACO LIFESTYLE', cls: 'md:col-span-4', pos: '55% 30%' },
+  { c: 0, label: 'BACK PRINT', cls: 'md:col-span-3', pos: '50% 70%' },
+  { c: 2, label: 'ISLAND EDITION', cls: 'md:col-span-4', pos: 'top' },
+  { c: 0, label: 'RIVIERA NIGHTS', cls: 'md:col-span-5', pos: '50% 35%' },
+  { c: 1, label: 'DETAIL 02', cls: 'md:col-span-3', pos: 'bottom' },
+  { c: 2, label: 'FRONT PRINT', cls: 'md:col-span-4', pos: 'center' },
+]
+
+export function ProductVisual({ src, alt, position = 'center' }: { src: string; alt: string; position?: string }) {
+  return <img src={src} alt={alt} loading="lazy" decoding="async" className="h-full w-full object-contain p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04] md:p-7" style={{ objectPosition: position }} />
+}
+
+export default function GallerySection() {
+  return (
+    <section id="disenos" className="scroll-mt-16 bg-bg-primary px-5 py-24 text-text-primary md:px-10 md:py-36" aria-labelledby="gallery-title">
+      <div className="mx-auto max-w-7xl">
+        <p className="label-section mb-5 text-gold">COLECCIONES</p>
+        <h2 id="gallery-title" className="heading-section mb-14 max-w-5xl text-white md:mb-20 md:text-7xl">Ideas que se convierten en identidad.</h2>
+        <div className="grid auto-rows-[260px] grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[230px]">
+          {tiles.map((tile, index) => {
+            const collection = collections[tile.c]
+            return (
+              <a href="#crear-diseno" key={`${tile.label}-${index}`} className={`group relative overflow-hidden bg-bg-tertiary ${tile.cls} cursor-[crosshair]`} aria-label={`Crear un diseño inspirado en ${tile.label}`}>
+                <ProductVisual src={collection.image} alt={collection.name} position={tile.pos} />
+                <div className="absolute inset-0 bg-black/10 transition-colors duration-500 group-hover:bg-gold/10" />
+                <span className="absolute left-5 top-5 text-[10px] tracking-[.25em] text-text-muted">{String(index + 1).padStart(2, '0')}</span>
+                <div className="absolute inset-x-5 bottom-5 translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                  <p className="text-[10px] tracking-[.28em] text-gold/60">VER DISEÑO</p>
+                  <p className="mt-2 flex items-end justify-between text-lg font-semibold text-white">{tile.label}<ArrowUpRight className="h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></p>
+                </div>
+              </a>
+            )
+          })}
+        </div>
+        <div className="mt-12 flex justify-center"><a href="#crear-diseno" className="group inline-flex items-center gap-4 border border-gold/30 px-7 py-4 text-xs font-bold tracking-[.18em] text-gold transition-colors hover:bg-gold hover:text-text-contrast"><ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />CREAR MI DISEÑO</a></div>
+      </div>
+    </section>
+  )
+}

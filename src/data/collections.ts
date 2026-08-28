@@ -40,13 +40,14 @@ export const brandInfo: BrandInfo = {
   tagline: 'TU IDEA. TU DISEÑO.',
 };
 
+/* Gold accent variants per collection — still distinct but all gold */
 export const collections: Collection[] = [
   {
     id: 'monaco-riviera',
     name: 'MONACO RIVIERA NIGHTS',
-    accent: '#168eea',
-    accentLight: '#46c8ff',
-    image: '/garments/monaco-riviera.png',
+    accent: '#D4A853',
+    accentLight: '#E8C06A',
+    image: '/garments/monaco-riviera.svg',
     text: 'Lujo nocturno, velocidad y libertad. Una composición inspirada en la Riviera y en quienes construyen su propio camino.',
     tags: ['LUXURY', 'MOTION', 'FREEDOM'],
     number: '01',
@@ -54,9 +55,9 @@ export const collections: Collection[] = [
   {
     id: 'monaco-lifestyle',
     name: 'MONACO LIFESTYLE',
-    accent: '#b51f24',
-    accentLight: '#e23232',
-    image: '/garments/monaco-lifestyle.png',
+    accent: '#B8912E',
+    accentLight: '#D4A853',
+    image: '/garments/monaco-lifestyle.svg',
     text: 'Tradición, prestigio y carácter. Una pieza construida alrededor de Monte Carlo, el automovilismo y una vida sin concesiones.',
     tags: ['POWER', 'PRESTIGE', 'TRADITION'],
     number: '02',
@@ -64,9 +65,9 @@ export const collections: Collection[] = [
   {
     id: 'puerto-rico',
     name: 'PUERTO RICO',
-    accent: '#b51f24',
-    accentLight: '#e23232',
-    image: '/garments/puerto-rico.png',
+    accent: '#C4993A',
+    accentLight: '#E0B050',
+    image: '/garments/puerto-rico.svg',
     text: 'Orgullo, cultura y disciplina. Una identidad nacida en la isla y construida en la calle.',
     tags: ['ORGULLO', 'CULTURA', 'DISCIPLINA'],
     number: '03',
@@ -75,11 +76,9 @@ export const collections: Collection[] = [
 
 export const marqueeItems: string[] = [
   'DISEÑOS ÚNICOS',
-  'TU ESTILO',
   'PRODUCCIÓN EUROPEA',
-  'DESDE CANARIAS',
-  'HECHO PARA TI',
-  'ENVÍOS A EUROPA',
+  'ENVÍO 2-4 DÍAS',
+  'ATENCIÓN PERSONAL',
 ];
 
 export const processSteps = [

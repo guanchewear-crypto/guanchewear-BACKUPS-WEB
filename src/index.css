@@ -1,111 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Design Tokens ─── */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Backgrounds */
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1A1A1A;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Gold accent palette */
+  --accent-gold: #D4A853;
+  --accent-gold-light: #E8C06A;
+  --accent-gold-dark: #B8912E;
+  --accent-gold-glow: rgba(212, 168, 83, 0.13);
+  --accent-gold-glow-strong: rgba(212, 168, 83, 0.25);
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+  /* Text */
+  --text-primary: #F5F5F5;
+  --text-secondary: #A0A0A0;
+  --text-muted: #555555;
+  --text-contrast: #0A0A0A;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Border */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-gold: rgba(212, 168, 83, 0.25);
+}
+
+/* ─── Tailwind theme extend ─── */
+@theme {
+  --color-gold: #D4A853;
+  --color-gold-light: #E8C06A;
+  --color-gold-dark: #B8912E;
+  --color-bg-primary: #0A0A0A;
+  --color-bg-secondary: #111111;
+  --color-bg-tertiary: #1A1A1A;
+}
+
+:root {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--bg-primary);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* ─── Typography Hierarchy ─── */
+/* Display / Hero headings */
+.font-display {
+  font-family: var(--font-display);
+}
+.font-display-italic {
+  font-family: var(--font-display);
+  font-style: italic;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+/* Section headings */
+.heading-section {
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
 }
 
-body {
-  margin: 0;
+/* Subheading labels */
+.label-section {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* Caption */
+.text-caption {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+/* Body */
+.body-large {
+  font-size: 1.125rem;
+  line-height: 1.6;
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+.body-default {
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
-p {
-  margin: 0;
+.body-small {
+  font-size: 0.8rem;
+  line-height: 1.55;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: clip; }
+button, a { -webkit-tap-highlight-color: transparent; }
+#guanchewear-app-wrapper, #root { width: 100%; max-width: none; margin: 0; padding: 0; }
+#guanchewear-app-wrapper { position: relative; isolation: isolate; overflow: clip; }
+
+/* WordPress/Kadence shortcode integration: page 116 is a full-bleed SPA. */
+body.page-id-116 #masthead,
+body.page-id-116 .entry-hero,
+body.page-id-116 #colophon,
+body.page-id-116 .site-header,
+body.page-id-116 .site-footer,
+body.page-id-116 .kadence-breadcrumbs,
+body.page-id-116 .woocommerce-store-notice { display: none !important; }
+body.page-id-116 .content-area { margin: 0 !important; }
+body.page-id-116 .content-container.site-container {
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+}
+body.page-id-116 .content-wrap { display: block !important; }
+body.page-id-116 article.entry,
+body.page-id-116 .entry-content-wrap,
+body.page-id-116 .entry-content {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* ─── Animations ─── */
+@keyframes gw-image-enter {
+  from { opacity: 0; filter: blur(14px); transform: scale(1.12); }
+  to { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+@keyframes gw-text-enter {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes gw-scroll {
+  0%, 100% { transform: translateY(0); opacity: .45; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+@keyframes gold-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+.gw-image-enter { animation: gw-image-enter 1.25s cubic-bezier(.22,1,.36,1) both; }
+.gw-text-enter { animation: gw-text-enter .65s cubic-bezier(.22,1,.36,1) both; }
+.gw-delay-2 { animation-delay: .45s; }
+.gw-delay-3 { animation-delay: .58s; }
+.gw-delay-4 { animation-delay: .8s; }
+.gw-delay-5 { animation-delay: .95s; }
+.gw-delay-6 { animation-delay: 1.1s; }
+.gw-delay-7 { animation-delay: 1.3s; }
+.gw-scroll { animation: gw-scroll 1.7s ease-in-out infinite; }
+
+/* Gold text shimmer effect for CTA hover */
+.gold-shimmer {
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light), var(--accent-gold-light), var(--accent-gold));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: background-position 0.6s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .gw-image-enter, .gw-text-enter, .gw-scroll { animation: none; }
 }
