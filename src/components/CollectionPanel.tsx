@@ -38,9 +38,9 @@ export function CollectionPanel({
             <span className="h-px w-10" style={{ backgroundColor: collection.accent }} />
             <span className="text-white/40">{String(total).padStart(2, '0')}</span>
           </div>
-          <h3 className="max-w-2xl text-4xl font-black leading-[0.92] tracking-[-0.05em] text-white sm:text-5xl lg:text-7xl">
+          <h2 className="max-w-2xl text-4xl font-black leading-[0.92] tracking-[-0.05em] text-white sm:text-5xl lg:text-7xl">
             {collection.name}
-          </h3>
+          </h2>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-text-secondary lg:text-lg">
             {words.map((word, wordIndex) => (
               <span

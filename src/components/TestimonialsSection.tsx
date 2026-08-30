@@ -98,7 +98,7 @@ export default function TestimonialsSection() {
         <div className="mt-8 flex items-center justify-between">
           <span className="text-xs tracking-[.2em] text-text-secondary">{String(active + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}</span>
           <div className="hidden gap-2 md:flex">
-            <button onClick={() => go(-1)} aria-label="Testimonio anterior" className="border border-gold/20 p-4 transition-all hover:border-gold/40 hover:text-gold hover:shadow-[0_0_15px_rgba(212,168,83,0.15)]">
+            <button onClick={() => go(-1)} aria-label="Anterior testimonio" className="border border-gold/20 p-4 transition-all hover:border-gold/40 hover:text-gold hover:shadow-[0_0_15px_rgba(212,168,83,0.15)]">
               <ArrowLeft className="h-4 w-4" />
             </button>
             <button onClick={() => go(1)} aria-label="Siguiente testimonio" className="border border-gold/20 p-4 transition-all hover:border-gold/40 hover:text-gold hover:shadow-[0_0_15px_rgba(212,168,83,0.15)]">

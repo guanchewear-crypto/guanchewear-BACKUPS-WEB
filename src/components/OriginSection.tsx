@@ -31,8 +31,9 @@ export function OriginSection() {
           </p>
         </div>
 
-        <div className="relative aspect-[5/4] w-full" aria-label="Ruta ilustrada desde Canarias hasta Europa">
-          <svg viewBox="0 0 760 600" className="size-full" role="img" aria-hidden="true">
+        <div className="relative aspect-[5/4] w-full">
+          <svg viewBox="0 0 760 600" className="size-full" aria-label="Mapa mostrando la ruta desde las Islas Canarias hasta Europa">
+            <desc>Ruta ilustrada desde Canarias hasta Europa</desc>
             <defs>
               <radialGradient id="originGlow">
                 <stop offset="0" stopColor="#D4A853" stopOpacity=".45" />

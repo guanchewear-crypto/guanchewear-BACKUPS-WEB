@@ -6,7 +6,7 @@ const reveal = { hidden: {}, show: { transition: { staggerChildren: .07, delayCh
 const word = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: .65 } } }
 
 function Words({ children }: { children: string }) {
-  return <motion.span variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: .6 }} aria-label={children}>{children.split(' ').map((text, i) => <motion.span aria-hidden="true" variants={word} className="inline-block" key={`${text}-${i}`}>{text}&nbsp;</motion.span>)}</motion.span>
+  return <motion.span variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true, amount: .6 }}>{children.split(' ').map((text, i) => <motion.span aria-hidden="true" variants={word} className="inline-block" key={`${text}-${i}`}>{text}&nbsp;</motion.span>)}</motion.span>
 }
 
 export default function ClosingCTA() {

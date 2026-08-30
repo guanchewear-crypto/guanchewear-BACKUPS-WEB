@@ -72,7 +72,10 @@ function ValueCard({ number, title, description, icon }: (typeof valuesData)[num
         }}
       />
       <div className="relative flex items-start justify-between">
-        <span className="text-xs tracking-[.25em] text-gold/50">{number}</span>
+        <span className="text-xs tracking-[.25em] text-gold" aria-hidden="true">
+          <span className="sr-only">Valor {number}: </span>
+          {number}
+        </span>
         <Icon aria-hidden="true" className="h-6 w-6 stroke-[1.4] text-gold transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" />
       </div>
       <div className="relative mt-20 md:mt-28">

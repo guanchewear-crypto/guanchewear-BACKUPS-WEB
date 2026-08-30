@@ -13,13 +13,14 @@ const tiles = [
   { c: 2, label: 'FRONT PRINT', cls: 'md:col-span-4', pos: 'center' },
 ]
 
-export function ProductVisual({ src, alt, position = 'center', index = 0 }: { src: string; alt: string; position?: string; index?: number }) {
+export function ProductVisual({ src, alt, position = 'center', index = 0, ariaHidden }: { src: string; alt: string; position?: string; index?: number; ariaHidden?: boolean }) {
   return (
     <img
       src={src}
       alt={alt}
       loading="lazy"
       decoding="async"
+      aria-hidden={ariaHidden ? 'true' : undefined}
       className={`h-full w-full object-contain p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04] md:p-7 gw-image-enter gw-delay-${Math.min(index + 2, 7)}`}
       style={{ objectPosition: position }}
     />
@@ -44,18 +45,19 @@ export default function GallerySection() {
                 href="#crear-diseno"
                 key={`${tile.label}-${index}`}
                 className={`group relative overflow-hidden bg-bg-tertiary ${tile.cls} cursor-[crosshair]`}
-                aria-label={`Crear un diseño inspirado en ${tile.label}`}
+                role="link"
+                aria-label={`Crear diseño inspirado en ${tile.label}`}
               >
                 <ProductVisual
                   src={collection.image}
-                  alt={collection.name}
+                  alt=""
+                  ariaHidden={true}
                   position={tile.pos}
                   index={index}
                 />
-                {/* Gold overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:from-gold/15 group-hover:opacity-100" />
-                <span className="absolute left-5 top-5 text-[10px] tracking-[.25em] text-text-muted">{String(index + 1).padStart(2, '0')}</span>
-                <div className="absolute inset-x-5 bottom-5 translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                {/* All visual content inside the link is hidden from AT — aria-label is the accessible name */}
+                <span className="absolute left-5 top-5 text-[10px] tracking-[.25em] text-text-muted" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <div className="absolute inset-x-5 bottom-5 translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100" aria-hidden="true">
                   <p className="text-[10px] tracking-[.28em] text-gold/60">VER DISEÑO</p>
                   <p className="mt-2 flex items-end justify-between text-lg font-semibold text-white">
                     {tile.label}

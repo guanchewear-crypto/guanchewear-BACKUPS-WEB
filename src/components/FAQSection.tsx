@@ -28,7 +28,7 @@ export default function FAQSection() {
             const expanded = open === index
             const panelId = `faq-panel-${index}`
             return <div key={item.question} className="border-t border-gold/10 last:border-b">
-              <h3><button ref={(node) => { buttons.current[index] = node }} type="button" aria-expanded={expanded} aria-controls={panelId} onClick={() => setOpen(expanded ? null : index)} onKeyDown={(e) => handleKeys(e, index)} className="flex w-full items-center justify-between gap-5 py-7 text-left text-base font-semibold md:text-xl"><span className="text-white">{item.question}</span><Plus className={`h-5 w-5 shrink-0 transition-transform duration-300 text-gold ${expanded ? 'rotate-45' : ''}`} /></button></h3>
+              <button ref={(node) => { buttons.current[index] = node }} type="button" aria-expanded={expanded} aria-controls={panelId} onClick={() => setOpen(expanded ? null : index)} onKeyDown={(e) => handleKeys(e, index)} className="flex w-full items-center justify-between gap-5 py-7 text-left text-base font-semibold md:text-xl"><span className="text-white">{item.question}</span><Plus className={`h-5 w-5 shrink-0 transition-transform duration-300 text-gold ${expanded ? 'rotate-45' : ''}`} /></button>
               <AnimatePresence initial={false}>{expanded && <motion.div id={panelId} role="region" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .32, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden"><p className="max-w-2xl pb-7 pr-10 text-sm leading-7 text-text-secondary md:text-base">{item.answer}</p></motion.div>}</AnimatePresence>
             </div>
           })}

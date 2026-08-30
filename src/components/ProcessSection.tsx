@@ -49,14 +49,16 @@ export function ProcessSection() {
                   <span className={`absolute inset-0 origin-bottom rounded-full bg-gradient-to-b from-gold to-gold-dark transition-transform duration-500 ${visible ? 'scale-y-100' : 'scale-y-0'}`} />
                   <Icon className={`relative z-10 size-5 transition-colors duration-500 ${visible ? 'text-bg-secondary' : 'text-gold'}`} strokeWidth={1.5} />
                 </div>
-                <p className="mt-0 text-xs font-black tracking-[0.2em] text-gold md:mt-8">{step.number}</p>
-                <h3 className="mt-3 text-2xl font-black tracking-[-0.025em] text-white">{step.title}</h3>
+                <p className="mt-0 text-xs font-black tracking-[0.2em] text-gold md:mt-8">
+                  <span className="sr-only">Paso </span>{step.number}
+                </p>
+                <h2 className="mt-3 text-2xl font-black tracking-[-0.025em] text-white">{step.title}</h2>
                 <p className="mt-4 max-w-sm leading-relaxed text-text-secondary">{step.description}</p>
               </article>
             )
           })}
         </div>
-        <a href="#crear-diseno" className="mt-20 inline-flex min-h-14 items-center rounded-full bg-gold px-8 text-xs font-black tracking-[0.18em] text-text-contrast shadow-[0_0_30px_rgba(212,168,83,0.2)] transition-all hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_0_40px_rgba(212,168,83,0.35)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold">
+        <a href="#crear-diseno" className="mt-20 inline-flex min-h-14 items-center rounded-full bg-gold px-8 text-xs font-black tracking-[0.18em] text-text-contrast shadow-[0_0_30px_rgba(212,168,83,0.2)] transition-all hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-[0_0_40px_rgba(212,168,83,0.35)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold" style={{ color: '#0A0A0A' }}>
           EMPEZAR MI DISEÑO
         </a>
       </div>

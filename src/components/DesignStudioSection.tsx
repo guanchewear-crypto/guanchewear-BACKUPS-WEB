@@ -132,7 +132,7 @@ export function DesignStudioSection() {
               </div>
             </fieldset>
 
-            <label className="mt-8 block text-[0.65rem] font-bold tracking-[0.2em] text-text-muted" htmlFor="studio-inspiration">
+            <label htmlFor="studio-inspiration" className="block text-[0.65rem] font-bold tracking-[0.2em] text-text-muted mt-8">
               TU INSPIRACIÓN
             </label>
             <div className="relative mt-3">
@@ -145,6 +145,7 @@ export function DesignStudioSection() {
                 placeholder="Cuéntanos la idea, el recuerdo o el lugar que quieres llevar contigo…"
                 className="w-full resize-y rounded-xl border border-border-subtle bg-bg-tertiary p-4 text-sm leading-relaxed text-text-primary outline-none transition-colors placeholder:text-text-muted/50 focus:border-gold/50"
                 rows={4}
+                aria-label="Describe tu inspiración para el diseño"
               />
               {/* Gold character counter */}
               <div className={`mt-2 text-right text-[0.6rem] font-bold tracking-[0.1em] ${charCount > 100 ? 'text-red-400' : 'text-text-muted'}`}>
