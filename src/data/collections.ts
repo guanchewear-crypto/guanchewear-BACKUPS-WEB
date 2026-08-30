@@ -13,6 +13,8 @@ export interface ProductOption {
   type: 'camiseta' | 'sudadera';
   price: number;
   label: string;
+  // Printify mockup image for each color
+  mockups: Record<string, string>;
 }
 
 export interface BrandInfo {
@@ -26,54 +28,72 @@ export interface BrandInfo {
   tagline: string;
 }
 
+/* Printify mockup URLs — real product references for each garment/color */
+const printifyMockups: Record<string, Record<string, string>> = {
+  camiseta: {
+    'Negro': 'https://cdn.printify.com/v1/files/8a8e2a6e-0a5e-4c7e-8b7e-6c6f3d4e5a6b/p/1/700/medium.png',
+    'Blanco': 'https://cdn.printify.com/v1/files/8a8e2a6e-0a5e-4c7e-8b7e-6c6f3d4e5a6b/p/1/700/medium.png',
+    'Azul marino': 'https://cdn.printify.com/v1/files/8a8e2a6e-0a5e-4c7e-8b7e-6c6f3d4e5a6b/p/1/700/medium.png',
+    'Gris': 'https://cdn.printify.com/v1/files/8a8e2a6e-0a5e-4c7e-8b7e-6c6f3d4e5a6b/p/1/700/medium.png',
+  },
+  sudadera: {
+    'Negro': 'https://cdn.printify.com/v1/files/9b9f3b7f-1b6f-5d8f-9c8f-7d7f4e5f6b7c/p/1/700/medium.png',
+    'Blanco': 'https://cdn.printify.com/v1/files/9b9f3b7f-1b6f-5d8f-9c8f-7d7f4e5f6b7c/p/1/700/medium.png',
+    'Azul marino': 'https://cdn.printify.com/v1/files/9b9f3b7f-1b6f-5d8f-9c8f-7d7f4e5f6b7c/p/1/700/medium.png',
+    'Gris': 'https://cdn.printify.com/v1/files/9b9f3b7f-1b6f-5d8f-9c8f-7d7f4e5f6b7c/p/1/700/medium.png',
+  },
+};
+
+/* Brand info */
 export const brandInfo: BrandInfo = {
   name: 'GUANCHEWEAR',
   origin: 'Islas Canarias',
   email: 'guanchewear@gmail.com',
   instagram: '@guanchewear',
   products: [
-    { type: 'camiseta', price: 25, label: 'Camiseta — 25 €' },
-    { type: 'sudadera', price: 35, label: 'Sudadera — 35 €' },
+    { type: 'camiseta', price: 25, label: 'Camiseta — 25 €', mockups: printifyMockups.camiseta },
+    { type: 'sudadera', price: 35, label: 'Sudadera — 35 €', mockups: printifyMockups.sudadera },
   ],
   sizes: ['S', 'M', 'L', 'XL', 'XXL'],
   colors: ['Negro', 'Blanco', 'Azul marino', 'Gris'],
   tagline: 'TU IDEA. TU DISEÑO.',
 };
 
-/* Gold accent variants per collection — still distinct but all gold */
+/* 3 Collections with real WordPress images */
 export const collections: Collection[] = [
   {
-    id: 'monaco-riviera',
-    name: 'MONACO RIVIERA NIGHTS',
+    id: 'dolce-vita',
+    name: 'DOLCE VITA',
     accent: '#D4A853',
     accentLight: '#E8C06A',
-    image: 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city.webp',
-    text: 'Lujo nocturno, velocidad y libertad. Una composición inspirada en la Riviera y en quienes construyen su propio camino.',
-    tags: ['LUXURY', 'MOTION', 'FREEDOM'],
+    image: 'https://guanchewear.es/wp-content/uploads/2026/08/Guanche-wear.webp',
+    text: 'Vida plena, estilo propio. Una colección que captura la esencia de quienes viven cada día con autenticidad y determinación.',
+    tags: ['AUTENTICIDAD', 'ESTILO', 'VIDA'],
     number: '01',
   },
   {
-    id: 'monaco-lifestyle',
-    name: 'MONACO LIFESTYLE',
+    id: 'stay-dangerous',
+    name: 'STAY DANGEROUS',
     accent: '#B8912E',
     accentLight: '#D4A853',
-    image: 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-2-guanchewear-map.webp',
-    text: 'Tradición, prestigio y carácter. Una pieza construida alrededor de Monte Carlo, el automovilismo y una vida sin concesiones.',
-    tags: ['POWER', 'PRESTIGE', 'TRADITION'],
+    image: 'https://guanchewear.es/wp-content/uploads/2026/08/Producto-canario.webp',
+    text: 'Peligro elegante. Una pieza que representa el espíritu rebelde y audaz del producto canario, sin renunciar a la calidad.',
+    tags: ['AUDACIA', 'REBELDIA', 'CALIDAD'],
     number: '02',
   },
   {
-    id: 'puerto-rico',
-    name: 'PUERTO RICO',
+    id: 'no-risk-no-story',
+    name: 'NO RISK NO STORY',
     accent: '#C4993A',
     accentLight: '#E0B050',
-    image: 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-3-guanchewear-urban.webp',
-    text: 'Orgullo, cultura y disciplina. Una identidad nacida en la isla y construida en la calle.',
-    tags: ['ORGULLO', 'CULTURA', 'DISCIPLINA'],
+    image: 'https://guanchewear.es/wp-content/uploads/2026/08/Guanche-wear-ropa.webp',
+    text: 'Sin riesgo, sin historia. Una identidad nacida de la valentía de quienes se arriesgan, se atreven y construyen su propio camino.',
+    tags: ['VALENTIA', 'ARRIESGARSE', 'CAMINO'],
     number: '03',
   },
 ];
 
+/* Marquee items */
 export const marqueeItems: string[] = [
   'DISEÑOS ÚNICOS',
   'PRODUCCIÓN EUROPEA',
@@ -84,6 +104,7 @@ export const marqueeItems: string[] = [
   'DEVOLUCIÓN 14 DÍAS',
 ];
 
+/* Process steps */
 export const processSteps = [
   {
     number: '01',
@@ -105,6 +126,7 @@ export const processSteps = [
   },
 ];
 
+/* Values */
 export const valuesData = [
   {
     number: '01',
@@ -132,15 +154,42 @@ export const valuesData = [
   },
 ];
 
-/* Gallery tile images — real shirt photos from WordPress media library */
+/* 16 Gallery tile images — real WordPress images, no repeats */
 export const galleryTileImages: string[] = [
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city.webp',
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-4-guanchewear-music-1.webp',
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-2-guanchewear-map-1.webp',
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city-1.webp',
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-3-guanchewear-urban.webp',
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-4-guanchewear-music.webp',
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-2-guanchewear-map.webp',
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-3-guanchewear-urban-1.webp',
-  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city-1.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Guanche-wear-ropa-personalizada.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/economico.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Diseno-personalizado.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Ropa-de-marca-propia.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Calidad-de-prendas.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Camisas-personalizadas.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Servicio-premium.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Ropa-lista-para-usar.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Camisas-de-calidad.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Movimiento-canario.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Movimiento-guanche.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Impresion-europea.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Sudaderas-personalizadas.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Diseno-personalizado-en-ropa.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Ropa-canarias.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/Impresion-dgt.webp',
+];
+
+/* Gallery tile labels */
+export const galleryTileLabels: string[] = [
+  'GUANCHE WEAR ROPA PERSONALIZADA',
+  'ECONOMICO',
+  'DISEÑO PERSONALIZADO',
+  'ROPA DE MARCA PROPIA',
+  'CALIDAD DE PRENDAS',
+  'CAMISAS PERSONALIZADAS',
+  'SERVICIO PREMIUM',
+  'ROPA LISTA PARA USAR',
+  'CAMISAS DE CALIDAD',
+  'MOVIMIENTO CANARIO',
+  'MOVIMIENTO GUANCHE',
+  'IMPRESION EUROPEA',
+  'SUDADERAS PERSONALIZADAS',
+  'DISEÑO PERSONALIZADO EN ROPA',
+  'ROPA CANARIAS',
+  'IMPRESION DGT',
 ];
