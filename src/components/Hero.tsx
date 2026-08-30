@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section id="inicio" className="relative min-h-[100svh] overflow-hidden bg-bg-primary text-white" aria-labelledby="hero-title">
       <div className="gw-image-enter absolute inset-0">
-        <SpotlightReveal mainImage="/garments/monaco-riviera.svg" hiddenImage="/garments/monaco-lifestyle.svg" />
+        <SpotlightReveal mainImage="/colecciones/01-dolce-vita.webp" hiddenImage="/colecciones/02-stay-dangerous.webp" />
       </div>
 
       {/* Overlay with gold glow */}
@@ -86,7 +86,7 @@ export function Hero() {
           {/* Collection label */}
           <div className="ml-auto text-right">
             <p className="text-[9px] tracking-[.18em] text-text-muted">01 / 03</p>
-            <p className="mt-1 font-display text-base italic tracking-wide text-gold/70 sm:text-lg">MONACO RIVIERA</p>
+            <p className="mt-1 font-display text-base italic tracking-wide text-gold/70 sm:text-lg">DOLCE VITA</p>
           </div>
         </div>
       </div>
