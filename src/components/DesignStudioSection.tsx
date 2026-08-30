@@ -31,22 +31,6 @@ const colors: { name: GarmentColor; value: string; contrast: string }[] = [
 ]
 const suggestions = ['Mi isla', 'Motor y velocidad', 'Un recuerdo', 'Mi frase favorita']
 
-/* Printify mockup references — real product images for each garment/color combination */
-const printifyMockups: Record<ProductType, Record<GarmentColor, string>> = {
-  camiseta: {
-    'Negro': 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city.webp',
-    'Blanco': 'https://guanchewear.es/wp-content/uploads/2026/08/Diseno-personalizado.webp',
-    'Azul marino': 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-2-guanchewear-map.webp',
-    'Gris': 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-3-guanchewear-urban.webp',
-  },
-  sudadera: {
-    'Negro': 'https://guanchewear.es/wp-content/uploads/2026/08/Sudaderas-personalizadas.webp',
-    'Blanco': 'https://guanchewear.es/wp-content/uploads/2026/08/Diseno-personalizado-en-ropa.webp',
-    'Azul marino': 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-4-guanchewear-music.webp',
-    'Gris': 'https://guanchewear.es/wp-content/uploads/2026/08/Ropa-de-marca-propia.webp',
-  },
-}
-
 export function DesignStudioSection() {
   const [product, setProduct] = useState<ProductType>('camiseta')
   const [size, setSize] = useState('M')
