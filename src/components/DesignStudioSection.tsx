@@ -5,19 +5,19 @@ import { brandInfo } from '../data/collections'
 type ProductType = 'camiseta' | 'sudadera'
 type GarmentColor = 'Negro' | 'Blanco' | 'Azul marino' | 'Gris'
 
-/* Printify mockup references — real product images from WP media */
+/* Printify mockup references — local copies from WP media */
 const printifyMockups: Record<ProductType, Record<GarmentColor, string>> = {
   camiseta: {
-    'Negro': 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city.webp',
-    'Blanco': 'https://guanchewear.es/wp-content/uploads/2026/08/Diseno-personalizado.webp',
-    'Azul marino': 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-2-guanchewear-map.webp',
-    'Gris': 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-3-guanchewear-urban.webp',
+    'Negro': '/mockups/camiseta-negro.webp',
+    'Blanco': '/mockups/camiseta-blanco.webp',
+    'Azul marino': '/mockups/camiseta-azul.webp',
+    'Gris': '/mockups/camiseta-gris.webp',
   },
   sudadera: {
-    'Negro': 'https://guanchewear.es/wp-content/uploads/2026/08/Sudaderas-personalizadas.webp',
-    'Blanco': 'https://guanchewear.es/wp-content/uploads/2026/08/Diseno-personalizado-en-ropa.webp',
-    'Azul marino': 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-4-guanchewear-music.webp',
-    'Gris': 'https://guanchewear.es/wp-content/uploads/2026/08/Ropa-de-marca-propia.webp',
+    'Negro': '/mockups/sudadera-negro.webp',
+    'Blanco': '/mockups/sudadera-blanco.webp',
+    'Azul marino': '/mockups/sudadera-azul.webp',
+    'Gris': '/mockups/sudadera-gris.webp',
   },
 }
 
