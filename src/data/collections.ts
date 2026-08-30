@@ -47,7 +47,7 @@ export const collections: Collection[] = [
     name: 'MONACO RIVIERA NIGHTS',
     accent: '#D4A853',
     accentLight: '#E8C06A',
-    image: '/garments/monaco-riviera.svg',
+    image: 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city.webp',
     text: 'Lujo nocturno, velocidad y libertad. Una composición inspirada en la Riviera y en quienes construyen su propio camino.',
     tags: ['LUXURY', 'MOTION', 'FREEDOM'],
     number: '01',
@@ -57,7 +57,7 @@ export const collections: Collection[] = [
     name: 'MONACO LIFESTYLE',
     accent: '#B8912E',
     accentLight: '#D4A853',
-    image: '/garments/monaco-lifestyle.svg',
+    image: 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-2-guanchewear-map.webp',
     text: 'Tradición, prestigio y carácter. Una pieza construida alrededor de Monte Carlo, el automovilismo y una vida sin concesiones.',
     tags: ['POWER', 'PRESTIGE', 'TRADITION'],
     number: '02',
@@ -67,7 +67,7 @@ export const collections: Collection[] = [
     name: 'PUERTO RICO',
     accent: '#C4993A',
     accentLight: '#E0B050',
-    image: '/garments/puerto-rico.svg',
+    image: 'https://guanchewear.es/wp-content/uploads/2026/08/modelo-3-guanchewear-urban.webp',
     text: 'Orgullo, cultura y disciplina. Una identidad nacida en la isla y construida en la calle.',
     tags: ['ORGULLO', 'CULTURA', 'DISCIPLINA'],
     number: '03',
@@ -130,4 +130,17 @@ export const valuesData = [
     description: 'Solo producimos lo que se pide. Sin sobreproducción, sin almacenes llenos y sin excedentes innecesarios.',
     icon: 'Recycle',
   },
+];
+
+/* Gallery tile images — real shirt photos from WordPress media library */
+export const galleryTileImages: string[] = [
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-4-guanchewear-music-1.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-2-guanchewear-map-1.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city-1.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-3-guanchewear-urban.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-4-guanchewear-music.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-2-guanchewear-map.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-3-guanchewear-urban-1.webp',
+  'https://guanchewear.es/wp-content/uploads/2026/08/modelo-1-guanchewear-city-1.webp',
 ];
