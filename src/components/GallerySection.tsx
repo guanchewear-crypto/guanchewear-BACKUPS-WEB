@@ -18,7 +18,7 @@ export function ProductVisual({ src, alt, position = 'center', index = 0, ariaHi
     <img
       src={src}
       alt={alt}
-      loading="lazy"
+      loading="eager"
       decoding="async"
       aria-hidden={ariaHidden ? 'true' : undefined}
       className={`h-full w-full object-cover p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04] md:p-7 gw-image-enter gw-delay-${Math.min(index + 2, 7)}`}
