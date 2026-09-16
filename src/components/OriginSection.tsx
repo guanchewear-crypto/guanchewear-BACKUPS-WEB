@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import { useReducedMotion } from 'framer-motion'
+import { EUROPE_LANDING, ORIGIN_VIEWBOX, ROUTE_PATH, TENERIFE, canaryIslands, europePath } from '../data/originMap'
 
 export function OriginSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const [visible, setVisible] = useState(false)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const section = sectionRef.current
@@ -16,6 +19,11 @@ export function OriginSection() {
     observer.observe(section)
     return () => observer.disconnect()
   }, [])
+
+  const drawIn = {
+    strokeDasharray: 1,
+    strokeDashoffset: visible ? 0 : 1,
+  }
 
   return (
     <section id="historia" ref={sectionRef} className="relative isolate scroll-mt-16 overflow-hidden bg-bg-secondary px-5 py-28 text-white sm:px-8 lg:px-[7vw] lg:py-44" aria-labelledby="origin-title">
@@ -32,8 +40,8 @@ export function OriginSection() {
         </div>
 
         <div className="relative aspect-[5/4] w-full">
-          <svg viewBox="0 0 760 600" className="size-full" aria-label="Mapa mostrando la ruta desde las Islas Canarias hasta Europa">
-            <desc>Ruta ilustrada desde Canarias hasta Europa</desc>
+          <svg viewBox={ORIGIN_VIEWBOX} className="size-full" aria-label="Mapa con la silueta real de Canarias y de Europa, y la ruta que sale de Tenerife">
+            <desc>Ruta ilustrada desde Canarias, saliendo de Tenerife, hasta Europa</desc>
             <defs>
               <radialGradient id="originGlow">
                 <stop offset="0" stopColor="#D4A853" stopOpacity=".45" />
@@ -41,52 +49,67 @@ export function OriginSection() {
               </radialGradient>
               <filter id="originBlur"><feGaussianBlur stdDeviation="12" /></filter>
             </defs>
-            <circle cx="128" cy="480" r="90" fill="url(#originGlow)" filter="url(#originBlur)" />
 
+            {/* Glow sits on Tenerife, where the route is born */}
+            <circle cx={TENERIFE.x} cy={TENERIFE.y} r="90" fill="url(#originGlow)" filter="url(#originBlur)" />
+
+            {/* Europe: real silhouette, every ring kept so seas read as holes */}
             <g fill="#d9e6ee" fillOpacity=".17" stroke="#a9dfff" strokeOpacity=".2" strokeWidth="1">
-              <path d="M420 82l48-24 72 11 26 29 60 12 31 38-10 43 34 28-18 52-48 24-22 48-53 8-24-32-45-9-29-46-37-19-16-62 27-42-7-38z" />
-              <path d="M501 351l37 21 18 51-20 53-41 35-16-39 14-46-23-38z" />
+              <path d={europePath} fillRule="evenodd" />
             </g>
+
+            {/* Canary Islands: real polygons, in their real arrangement */}
             <g fill="#8dd8ff">
-              <path d="M73 484l28-7 14 7-19 8z" /><path d="M117 474l23-11 18 6-22 10z" />
-              <path d="M157 458l16-8 22 4-18 10z" /><path d="M196 448l18-4 11 7-19 6z" />
-              <path d="M225 463l12-5 11 5-10 7z" /><path d="M57 500l16-5 10 5-15 7z" />
+              {canaryIslands.map((island) => (
+                <path key={island.name} d={island.path} />
+              ))}
             </g>
 
             {/* Gold route line with shimmer animation on draw */}
-            <path d="M132 474 C 230 340, 320 245, 485 203 S 604 178, 620 159" fill="none" stroke="#D4A853" strokeWidth="2.5" strokeLinecap="round" pathLength="1" className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none" style={{ strokeDasharray: 1, strokeDashoffset: visible ? 0 : 1 }} />
+            <path id="origin-route" d={ROUTE_PATH} fill="none" stroke="#D4A853" strokeWidth="2.5" strokeLinecap="round" pathLength="1" className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none" style={drawIn} />
             {/* Glow layer behind route */}
-            <path d="M132 474 C 230 340, 320 245, 485 203 S 604 178, 620 159" fill="none" stroke="#D4A853" strokeWidth="8" strokeOpacity=".12" filter="url(#originBlur)" pathLength="1" className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none" style={{ strokeDasharray: 1, strokeDashoffset: visible ? 0 : 1 }} />
+            <path d={ROUTE_PATH} fill="none" stroke="#D4A853" strokeWidth="8" strokeOpacity=".12" filter="url(#originBlur)" pathLength="1" className="transition-[stroke-dashoffset] duration-[1800ms] ease-out motion-reduce:transition-none" style={drawIn} />
             {/* Shimmer overlay on route */}
             {visible && (
-              <path d="M132 474 C 230 340, 320 245, 485 203 S 604 178, 620 159" fill="none" stroke="#E8C06A" strokeWidth="3" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset="0" className="transition-opacity duration-1000" style={{
+              <path d={ROUTE_PATH} fill="none" stroke="#E8C06A" strokeWidth="3" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset="0" className="transition-opacity duration-1000" style={{
                 maskImage: 'linear-gradient(90deg, transparent 0%, white 40%, white 60%, transparent 100%)',
                 WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, white 40%, white 60%, transparent 100%)',
               }} />
             )}
 
-            {/* Canary Islands node with pulse animation */}
+            {/* Luminous point travelling from Tenerife to Europe */}
+            {visible && !reduceMotion && (
+              <g aria-hidden="true">
+                <animateMotion dur="3.4s" repeatCount="indefinite" begin="1.4s">
+                  <mpath href="#origin-route" />
+                </animateMotion>
+                <circle r="7" fill="#D4A853" opacity=".28" />
+                <circle r="3.2" fill="#F2DCA0" />
+              </g>
+            )}
+
+            {/* Tenerife node with pulse animation */}
             <g className={`transition-opacity delay-700 duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
               {/* Outer pulse ring — continuously animating */}
               {visible && (
-                <circle cx="132" cy="474" r="6" fill="none" stroke="#D4A853" strokeOpacity=".4">
+                <circle cx={TENERIFE.x} cy={TENERIFE.y} r="6" fill="none" stroke="#D4A853" strokeOpacity=".4">
                   <animate attributeName="r" values="6;22;6" dur="2.5s" repeatCount="indefinite" />
                   <animate attributeName="strokeOpacity" values=".4;0;.4" dur="2.5s" repeatCount="indefinite" />
                 </circle>
               )}
-              <circle cx="132" cy="474" r="6" fill="#D4A853" />
-              <circle cx="132" cy="474" r="15" fill="none" stroke="#D4A853" strokeOpacity=".35" />
+              <circle cx={TENERIFE.x} cy={TENERIFE.y} r="6" fill="#D4A853" />
+              <circle cx={TENERIFE.x} cy={TENERIFE.y} r="15" fill="none" stroke="#D4A853" strokeOpacity=".35" />
             </g>
 
             {/* Europe node */}
             <g className={`transition-opacity delay-700 duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-              <circle cx="620" cy="159" r="6" fill="#fff" />
-              <circle cx="620" cy="159" r="15" fill="none" stroke="#fff" strokeOpacity=".25" />
+              <circle cx={EUROPE_LANDING.x} cy={EUROPE_LANDING.y} r="6" fill="#fff" />
+              <circle cx={EUROPE_LANDING.x} cy={EUROPE_LANDING.y} r="15" fill="none" stroke="#fff" strokeOpacity=".25" />
             </g>
 
             {/* Labels */}
             <g fill="#fff" fontFamily="system-ui, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">
-              <text x="108" y="525">CANARIAS</text><text x="640" y="152">EUROPA</text>
+              <text x="44" y="584">CANARIAS</text><text x="566" y="226">EUROPA</text>
             </g>
           </svg>
         </div>
