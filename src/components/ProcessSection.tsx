@@ -30,13 +30,6 @@ export function ProcessSection() {
         </h2>
 
         <div className="relative mt-20 grid gap-14 md:grid-cols-3 md:gap-8">
-          {/* Gold connector line */}
-          <div className="absolute bottom-0 left-0 right-0 md:left-1/2 md:top-0 md:h-full md:w-px md:-translate-x-1/2 md:border-0">
-            <div className="h-px bg-gold/20 md:h-full md:w-px">
-              <div className={`h-full w-full origin-top bg-gradient-to-b from-transparent via-gold to-transparent transition-transform duration-1000 md:origin-left md:scale-x-0 md:bg-gradient-to-r ${visible ? 'scale-y-100 md:scale-x-100' : 'scale-y-0 md:scale-x-0'}`} />
-            </div>
-          </div>
-
           {processSteps.map((step, index) => {
             const Icon = icons[step.icon] ?? Lightbulb
             return (

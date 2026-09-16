@@ -1,26 +1,16 @@
 import { ArrowUpRight } from 'lucide-react'
 import { galleryTileImages, galleryTileLabels } from '../data/collections'
 
-const tilePositions = [
-  { cls: 'md:col-span-7 md:row-span-2', pos: 'center' },
-  { cls: 'md:col-span-5', pos: 'top' },
-  { cls: 'md:col-span-5 md:row-span-2', pos: 'center' },
-  { cls: 'md:col-span-4', pos: '55% 30%' },
-  { cls: 'md:col-span-3', pos: '50% 70%' },
-  { cls: 'md:col-span-4', pos: 'top' },
-  { cls: 'md:col-span-5', pos: '50% 35%' },
-  { cls: 'md:col-span-3', pos: 'bottom' },
-  { cls: 'md:col-span-4', pos: 'center' },
-  { cls: 'md:col-span-6 md:row-span-2', pos: 'center' },
-  { cls: 'md:col-span-6', pos: 'top' },
-  { cls: 'md:col-span-4', pos: '55% 30%' },
-  { cls: 'md:col-span-4', pos: '50% 70%' },
-  { cls: 'md:col-span-4', pos: 'top' },
-  { cls: 'md:col-span-6', pos: '50% 35%' },
-  { cls: 'md:col-span-6', pos: 'bottom' },
-]
+/**
+ * Two designs per row: each tile takes 6 of the 12 columns over 2 rows, which
+ * is the only size that both fills the grid exactly (no empty cells) and lands
+ * on the 4:3 aspect of the artwork, so each board is shown whole and at a size
+ * where it can actually be read. scripts/check-gallery-grid.py verifies both
+ * properties - keep them true when editing this.
+ */
+const TILE_SPAN = 'md:col-span-6 md:row-span-2'
 
-export function ProductVisual({ src, alt, position = 'center', index = 0, ariaHidden }: { src: string; alt: string; position?: string; index?: number; ariaHidden?: boolean }) {
+export function ProductVisual({ src, alt, index = 0, ariaHidden }: { src: string; alt: string; index?: number; ariaHidden?: boolean }) {
   return (
     <img
       src={src}
@@ -28,8 +18,7 @@ export function ProductVisual({ src, alt, position = 'center', index = 0, ariaHi
       loading="eager"
       decoding="async"
       aria-hidden={ariaHidden ? 'true' : undefined}
-      className={`h-full w-full object-cover p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04] md:p-7 gw-image-enter gw-delay-${Math.min(index + 2, 7)}`}
-      style={{ objectPosition: position }}
+      className={`h-full w-full object-contain p-4 transition-transform duration-700 ease-out group-hover:scale-[1.04] md:p-7 gw-image-enter gw-delay-${Math.min(index + 2, 7)}`}
     />
   )
 }
@@ -44,12 +33,14 @@ export default function GallerySection() {
       <div className="mx-auto max-w-7xl">
         <p className="label-section mb-5 text-gold">COLECCIONES</p>
         <h2 id="gallery-title" className="heading-section mb-14 max-w-5xl text-white md:mb-20 md:text-7xl">Ideas que se convierten en identidad.</h2>
-        <div className="grid auto-rows-[260px] grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[230px]">
+        {/* Row height tracks the viewport so the 3/6-column tiles keep the 4:3
+            artwork aspect across desktop widths, instead of only at max-w-7xl. */}
+        <div className="grid auto-rows-[260px] grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-12 md:auto-rows-[clamp(170px,17vw,235px)]">
           {galleryTileImages.map((img, index) => (
             <a
               href="#crear-diseno"
               key={`${galleryTileLabels[index]}-${index}`}
-              className={`group relative overflow-hidden bg-bg-tertiary ${tilePositions[index].cls} cursor-[crosshair]`}
+              className={`group relative overflow-hidden bg-bg-tertiary ${TILE_SPAN} cursor-[crosshair]`}
               role="link"
               aria-label={`Ver diseño: ${galleryTileLabels[index]}`}
             >
@@ -57,7 +48,6 @@ export default function GallerySection() {
                 src={img}
                 alt=""
                 ariaHidden={true}
-                position={tilePositions[index].pos}
                 index={index}
               />
               <span className="absolute left-5 top-5 text-[10px] tracking-[.25em] text-text-muted" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>

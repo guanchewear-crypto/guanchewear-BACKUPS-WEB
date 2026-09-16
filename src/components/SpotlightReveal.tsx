@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 
 type SpotlightRevealProps = { mainImage: string; hiddenImage: string }
@@ -18,7 +18,7 @@ function useMediaQuery(query: string) {
 function DesktopSpotlight({ mainImage, hiddenImage }: SpotlightRevealProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const cursor = useRef({ x: 0, y: 0, tx: 0, ty: 0, active: false, blocked: false })
+  const cursor = useRef({ x: 0, y: 0, tx: 0, ty: 0, clientX: 0, clientY: 0, active: false, blocked: false })
   const idleTimer = useRef<number | undefined>(undefined)
   const [showHint, setShowHint] = useState(false)
   const reduceMotion = useReducedMotion()
@@ -31,21 +31,81 @@ function DesktopSpotlight({ mainImage, hiddenImage }: SpotlightRevealProps) {
   }, [])
 
   useEffect(() => () => window.clearTimeout(idleTimer.current), [])
+
+  // The hero stacks a full-bleed content layer on top of this component, so a
+  // listener bound to our own node would only ever fire in the leftover margins.
+  // Track the pointer on the window and test it against our own box instead.
+  useEffect(() => {
+    // Always read cursor.current fresh: the draw effect below mutates this ref,
+    // and a captured alias would silently write into an orphaned object.
+    const insideWrap = (pointer: typeof cursor.current) => {
+      const wrap = wrapRef.current
+      if (!wrap) return null
+      const rect = wrap.getBoundingClientRect()
+      const inside =
+        pointer.clientX >= rect.left && pointer.clientX <= rect.right &&
+        pointer.clientY >= rect.top && pointer.clientY <= rect.bottom
+      return inside ? rect : null
+    }
+
+    const onPointerMove = (event: PointerEvent) => {
+      const pointer = cursor.current
+      pointer.clientX = event.clientX
+      pointer.clientY = event.clientY
+      const rect = insideWrap(pointer)
+      pointer.active = Boolean(rect)
+
+      if (!rect) {
+        setShowHint(false)
+        window.clearTimeout(idleTimer.current)
+        return
+      }
+
+      pointer.tx = event.clientX - rect.left
+      pointer.ty = event.clientY - rect.top
+      if (!pointer.x && !pointer.y) { pointer.x = pointer.tx; pointer.y = pointer.ty }
+
+      pointer.blocked = Boolean((event.target as HTMLElement | null)?.closest?.('a,button'))
+      if (pointer.blocked) setShowHint(false)
+      else restartIdle()
+    }
+
+    const onScroll = () => {
+      const pointer = cursor.current
+      if (pointer.active && !insideWrap(pointer)) {
+        pointer.active = false
+        setShowHint(false)
+        window.clearTimeout(idleTimer.current)
+      }
+    }
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [restartIdle])
   useEffect(() => {
     const wrap = wrapRef.current; const canvas = canvasRef.current; const ctx = canvas?.getContext('2d')
     if (!wrap || !canvas || !ctx) return
     const image = new Image(); image.src = hiddenImage
     let frame = 0; let width = 0; let height = 0
     const resize = () => {
-      const rect = wrap.getBoundingClientRect(); const dpr = Math.min(devicePixelRatio || 1, 2)
-      width = rect.width; height = rect.height; canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr)
-      canvas.style.width = `${width}px`; canvas.style.height = `${height}px`; ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      if (!cursor.current.x) cursor.current = { ...cursor.current, x: width / 2, y: height / 2, tx: width / 2, ty: height / 2 }
+      const dpr = Math.min(devicePixelRatio || 1, 2)
+      // offsetWidth/Height are the layout box. getBoundingClientRect() would
+      // report the size mid entrance-transform and bake that inflated size in.
+      width = wrap.offsetWidth || 1; height = wrap.offsetHeight || 1
+      canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr)
+      canvas.style.width = `${width}px`; canvas.style.height = `${height}px`
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      const p = cursor.current
+      if (!p.x && !p.y) { p.x = p.tx = width / 2; p.y = p.ty = height / 2 }
     }
     const draw = () => {
       const p = cursor.current; const lerp = reduceMotion ? 1 : .09
       p.x += (p.tx - p.x) * lerp; p.y += (p.ty - p.y) * lerp; ctx.clearRect(0, 0, width, height)
-      if (p.active && !p.blocked && image.complete && image.naturalWidth) {
+      if (p.active && image.complete && image.naturalWidth) {
         const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight)
         const w = image.naturalWidth * scale; const h = image.naturalHeight * scale
         ctx.save(); ctx.drawImage(image, (width - w) / 2, (height - h) / 2, w, h); ctx.globalCompositeOperation = 'destination-in'
@@ -59,13 +119,7 @@ function DesktopSpotlight({ mainImage, hiddenImage }: SpotlightRevealProps) {
     return () => { observer.disconnect(); cancelAnimationFrame(frame) }
   }, [hiddenImage, reduceMotion])
 
-  const move = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect(); cursor.current.tx = event.clientX - rect.left; cursor.current.ty = event.clientY - rect.top
-    cursor.current.blocked = Boolean((event.target as HTMLElement).closest('a,button'))
-    if (cursor.current.blocked) setShowHint(false)
-    else restartIdle()
-  }
-  return <div ref={wrapRef} className="absolute inset-0" onPointerEnter={(e) => { cursor.current.active = true; move(e) }} onPointerMove={move} onPointerLeave={() => { cursor.current.active = false; setShowHint(false); clearTimeout(idleTimer.current) }}>
+  return <div ref={wrapRef} className="pointer-events-none absolute inset-0">
     <img src={mainImage} alt="Camiseta Monaco Riviera" className="h-full w-full object-cover" draggable={false} />
     <canvas ref={canvasRef} className="pointer-events-none absolute inset-0" aria-hidden="true" />
     <span className={`pointer-events-none absolute left-1/2 top-[72%] -translate-x-1/2 text-[9px] tracking-[.28em] text-white transition-opacity duration-500 ${showHint ? 'opacity-70' : 'opacity-0'}`}>DESCUBRIR OTRA HISTORIA</span>

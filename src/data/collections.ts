@@ -96,12 +96,13 @@ export const collections: Collection[] = [
 /* Marquee items */
 export const marqueeItems: string[] = [
   'DISEÑOS ÚNICOS',
-  'PRODUCCIÓN EUROPEA',
+  'PERSONALIZACIÓN REAL',
+  'HECHO 1 A 1',
+  'TU IDEA, TU PRENDA',
   'ENVÍO 2-4 DÍAS',
+  'PRODUCCIÓN EUROPEA',
   'ATENCIÓN PERSONAL',
   'PAGO SEGURO',
-  'PRINTIFY EUROPE',
-  'DEVOLUCIÓN 14 DÍAS',
 ];
 
 /* Process steps */

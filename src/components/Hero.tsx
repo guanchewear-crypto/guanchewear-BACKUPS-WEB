@@ -52,7 +52,8 @@ export function Hero() {
                 CREAR MI DISEÑO <ArrowRight size={14} />
               </span>
             </MagneticButton>
-            <MagneticButton href="#como-funciona" variant="secondary">
+            {/* #colecciones opens on the first panel, which is DOLCE VITA */}
+            <MagneticButton href="#colecciones" variant="secondary">
               <span className="flex items-center gap-2 text-[10px] font-bold tracking-[.13em]">VER CÓMO FUNCIONA</span>
             </MagneticButton>
           </div>
