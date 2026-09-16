@@ -7,7 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify": "npm run lint && npm run build && npm run verify:catalog && npm run verify:anchors && npm run verify:order && npm run verify:import && npm run verify:origin && npm run verify:grid",
+    "verify:catalog": "node scripts/verify-garments.mjs",
+    "verify:anchors": "node scripts/verify-anchors.mjs",
+    "verify:order": "node scripts/verify-order-message.mjs",
+    "verify:import": "python scripts/verify-import.py",
+    "verify:origin": "python scripts/verify-origin-map.py",
+    "verify:grid": "python scripts/check-gallery-grid.py"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

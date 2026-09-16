@@ -24,3 +24,12 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Secretos: nunca versionar
+.env
+.env.*
+!.env.example
+
+# Python (scripts de verificacion)
+__pycache__/
+*.pyc
