@@ -90,6 +90,37 @@ button, a { -webkit-tap-highlight-color: transparent; }
 #guanchewear-app-wrapper, #root { width: 100%; max-width: none; margin: 0; padding: 0; }
 #guanchewear-app-wrapper { position: relative; isolation: isolate; overflow: clip; }
 
+/* ─── Collection-to-CTA particle atmosphere ─── */
+.gw-particle-stage { position: relative; }
+.gw-particle-field {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms cubic-bezier(.22, 1, .36, 1);
+}
+.gw-particle-field canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Keep section backgrounds below the canvas while content remains above it. */
+.gw-particle-stage > section > :not([class~="absolute"]):not([class*="z-"]) {
+  z-index: 2;
+}
+.gw-particle-stage > section > :not([class~="absolute"]):not([class*="z-"]):not([class*="sticky"]) {
+  position: relative;
+}
+/* Do not replace an existing sticky collection viewport with position: relative. */
+.gw-particle-stage > section > [class*="sticky"] {
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gw-particle-field { transition: none; }
+}
+
 /* WordPress/Kadence shortcode integration: page 116 is a full-bleed SPA. */
 body.page-id-116 #masthead,
 body.page-id-116 .entry-hero,

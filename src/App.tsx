@@ -14,6 +14,7 @@ import ClosingCTA from './components/ClosingCTA'
 import Footer from './components/Footer'
 import NoiseOverlay from './components/NoiseOverlay'
 import ScrollProgress from './components/ScrollProgress'
+import ParticleField from './components/ParticleField'
 import { marqueeItems } from './data/collections'
 
 function App() {
@@ -32,15 +33,17 @@ function App() {
       <main>
         <Hero />
         <TrustMarquee items={marqueeItems} />
-        <CollectionShowcase />
-        <ProcessSection />
-        <DesignStudioSection />
-        <OriginSection />
-        <ValuesSection />
-        <GallerySection />
-        <TestimonialsSection />
-        <FAQSection />
-        <ClosingCTA />
+        <ParticleField>
+          <CollectionShowcase />
+          <ProcessSection />
+          <DesignStudioSection />
+          <OriginSection />
+          <ValuesSection />
+          <GallerySection />
+          <TestimonialsSection />
+          <FAQSection />
+          <ClosingCTA />
+        </ParticleField>
       </main>
       <Footer />
     </>
